@@ -18,12 +18,13 @@ class LoginActivity : BaseActivty() {
         setSupportActionBar(toolbar)
 
         var fragment: LoginFragment? = supportFragmentManager
-                .findFragmentById(R.id.contentFrame) as LoginFragment
+                .findFragmentById(R.id.contentFrame) as LoginFragment?
 
         if (fragment == null) {
             fragment = this.fragment
             ActivityUtils.addFragmentToActivity(supportFragmentManager,
                     fragment, R.id.contentFrame)
+
         }
 
     }
