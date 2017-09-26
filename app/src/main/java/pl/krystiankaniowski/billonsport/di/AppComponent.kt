@@ -1,7 +1,8 @@
 package pl.krystiankaniowski.billonsport.di
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import pl.krystiankaniowski.billonsport.BillonSportApplication
 import javax.inject.Singleton
@@ -12,9 +13,18 @@ import javax.inject.Singleton
         AppModule::class,
         ActivityBuilder::class
 ))
-interface AppComponent : AndroidInjector<BillonSportApplication> {
+interface AppComponent {
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<BillonSportApplication>()
+    interface Builder {
+
+        @BindsInstance
+        fun application(application: Application): Builder
+
+        fun build(): AppComponent
+
+    }
+
+    fun inject(app: BillonSportApplication)
 
 }
