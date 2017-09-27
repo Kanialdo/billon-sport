@@ -3,6 +3,11 @@ package pl.krystiankaniowski.billonsport.ui.login
 import android.app.ProgressDialog
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import butterknife.BindView
+import butterknife.OnClick
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_login.*
 import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
@@ -13,18 +18,32 @@ import javax.inject.Inject
 @ActivityScoped
 class LoginFragment @Inject constructor() : BaseFragment(), LoginContract.View {
 
-    var progressDialog: ProgressDialog? = null
+    private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+    private var progressDialog: ProgressDialog? = null
 
     @Inject
-    lateinit var presenter: LoginContract.Presenter
+    internal lateinit var presenter: LoginContract.Presenter
+
+    @BindView(R.id.et_login)
+    internal lateinit var etLogin: EditText
+
+    @BindView(R.id.et_password)
+    internal lateinit var etPassword: EditText
+
+    @BindView(R.id.b_login)
+    internal lateinit var bLogin: Button
 
     // ---------------------------------------------------------------------------------------------
 
     override fun getLayoutId(): Int = R.layout.fragment_login
 
     override fun prepareView(view: View) {
-        val button: Button = view.findViewById(R.id.b_login)
-        button.setOnClickListener { _ -> presenter.login(et_login.text.toString(), et_password.text.toString()) }
+        compositeDisposable.add(RxTextView.textChanges(etLogin).subscribe({ v -> presenter.validateLogin(v.toString()) }))
+        compositeDisposable.add(RxTextView.textChanges(etPassword).subscribe({ v -> presenter.validatePassword(v.toString()) }))
+    }
+
+    override fun dropView() {
+        compositeDisposable.clear()
     }
 
     override fun subscribePresenter() {
@@ -38,17 +57,17 @@ class LoginFragment @Inject constructor() : BaseFragment(), LoginContract.View {
     // ---------------------------------------------------------------------------------------------
 
     override fun setLoginField(enable: Boolean, value: UiFieldSet<String>) {
-        et_login.isEnabled = enable
-        et_login.setText(value.value())
+        etLogin.isEnabled = enable
+        etLogin.setText(value.value())
     }
 
     override fun setPasswordField(enable: Boolean, value: UiFieldSet<String>) {
-        et_password.isEnabled = enable
-        et_password.setText(value.value())
+        etPassword.isEnabled = enable
+        etPassword.setText(value.value())
     }
 
     override fun setLoginButtonEnable(enable: Boolean) {
-        b_login.isEnabled = enable
+        bLogin.isEnabled = enable
     }
 
     override fun setProgressIndicatorVisible(visible: Boolean) {
@@ -59,6 +78,13 @@ class LoginFragment @Inject constructor() : BaseFragment(), LoginContract.View {
             progressDialog?.dismiss()
             progressDialog = null
         }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @OnClick(R.id.b_login)
+    internal fun click() {
+        presenter.login(et_login.text.toString(), et_password.text.toString())
     }
 
 }

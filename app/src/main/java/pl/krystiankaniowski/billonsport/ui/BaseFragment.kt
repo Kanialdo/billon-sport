@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -18,6 +20,7 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
     lateinit var childFragmentInjector: DispatchingAndroidInjector<Fragment>
 
     private lateinit var fragmentView: View
+    private lateinit var unbinder : Unbinder
 
     // ---------------------------------------------------------------------------------------------
 
@@ -29,6 +32,7 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         fragmentView = inflater!!.inflate(getLayoutId(), container, false)
+        unbinder = ButterKnife.bind(this, fragmentView);
         prepareView(fragmentView)
         return fragmentView
     }
@@ -43,6 +47,11 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
         super.onPause()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        unbinder.unbind()
+    }
+
     override fun supportFragmentInjector(): AndroidInjector<Fragment>? {
         return childFragmentInjector
     }
@@ -50,6 +59,8 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
     // ---------------------------------------------------------------------------------------------
 
     abstract fun prepareView(view: View)
+
+    abstract fun dropView()
 
     abstract fun getLayoutId(): Int
 
