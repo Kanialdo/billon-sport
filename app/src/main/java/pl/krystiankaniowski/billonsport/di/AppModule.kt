@@ -7,12 +7,16 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-abstract class AppModule {
+class AppModule {
 
     @Provides
     @Singleton
     fun provideContext(application: Application): Context {
         return application
     }
+
+    @Provides
+    @Singleton
+    fun provideDupa() : String = "Dupa"
 
 }

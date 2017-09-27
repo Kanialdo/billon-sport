@@ -1,19 +1,55 @@
 package pl.krystiankaniowski.billonsport.ui.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.design.widget.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import pl.krystiankaniowski.billonsport.R
-import pl.krystiankaniowski.billonsport.ui.login.LoginActivity
+import pl.krystiankaniowski.billonsport.ui.BaseActivty
+import pl.krystiankaniowski.billonsport.ui.main.home.EventsFragment
+import pl.krystiankaniowski.billonsport.ui.main.home.HomeFragment
+import pl.krystiankaniowski.billonsport.ui.main.home.ProfileFragment
+import pl.krystiankaniowski.billonsport.ui.main.home.SettingsFragment
+import pl.krystiankaniowski.billonsport.utils.ActivityUtils
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivty() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
-        startActivity(Intent(this, LoginActivity::class.java))
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                val fragment = HomeFragment()
+                supportFragmentInjector()?.inject(fragment)
+                ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_events -> {
+                val fragment = EventsFragment()
+                supportFragmentInjector()?.inject(fragment)
+                ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_profile -> {
+                val fragment = ProfileFragment()
+                supportFragmentInjector()?.inject(fragment)
+                ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_settings -> {
+                val fragment = SettingsFragment()
+                supportFragmentInjector()?.inject(fragment)
+                ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 
 }

@@ -1,6 +1,7 @@
 package pl.krystiankaniowski.billonsport.ui.login
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
+import pl.krystiankaniowski.billonsport.ui.main.MainActivity
 import pl.krystiankaniowski.billonsport.utils.UiFieldSet
 import javax.inject.Inject
 
@@ -71,13 +73,14 @@ class LoginFragment @Inject constructor() : BaseFragment(), LoginContract.View {
     }
 
     override fun setProgressIndicatorVisible(visible: Boolean) {
-        if (visible) {
-            progressDialog = ProgressDialog.show(context, "Login", "login pending")
-            // Toast.makeText(context, "Rozpoczeto logowanie", Toast.LENGTH_SHORT).show()
-        } else {
-            progressDialog?.dismiss()
-            progressDialog = null
-        }
+        startActivity(Intent(context, MainActivity::class.java))
+//        if (visible) {
+//            progressDialog = ProgressDialog.show(context, "Login", "login pending")
+//            // Toast.makeText(context, "Rozpoczeto logowanie", Toast.LENGTH_SHORT).show()
+//        } else {
+//            progressDialog?.dismiss()
+//            progressDialog = null
+//        }
     }
 
     // ---------------------------------------------------------------------------------------------
