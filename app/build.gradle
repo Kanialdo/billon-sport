@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 kapt {
@@ -32,7 +30,6 @@ android {
         main.java.srcDirs += 'build/generated/source/kapt/debug'
     }
 
-
 }
 
 dependencies {
@@ -52,9 +49,14 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
 
-    compile 'com.jakewharton:butterknife:8.8.1'
-    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
 
-    compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rootProject.rxBindingsKotlinVersion"
+
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
 
 }

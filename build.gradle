@@ -17,9 +17,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.google.com' }
         google()
         jcenter()
     }
+
 }
 
 task clean(type: Delete) {
@@ -30,5 +32,9 @@ ext {
 
     dagger2Version = '2.11'
     supportLibraryVersion = '26.1.0'
+    butterKnifeVersion = '8.8.1'
+    rxKotlinVersion = "2.1.0"
+    rxBindingsKotlinVersion = "2.0.0"
+    roomVersion = "1.0.0-alpha9-1"
 
 }

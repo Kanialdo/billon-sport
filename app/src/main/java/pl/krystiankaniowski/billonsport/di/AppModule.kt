@@ -1,9 +1,11 @@
 package pl.krystiankaniowski.billonsport.di
 
 import android.app.Application
+import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import pl.krystiankaniowski.billonsport.database.AppDatabase
 import javax.inject.Singleton
 
 @Module
@@ -17,6 +19,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDupa() : String = "Dupa"
+    fun provideDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
+    }
 
 }
