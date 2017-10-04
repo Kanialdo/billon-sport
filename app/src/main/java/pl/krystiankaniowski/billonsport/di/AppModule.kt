@@ -6,6 +6,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import pl.krystiankaniowski.billonsport.database.AppDatabase
+import pl.krystiankaniowski.billonsport.database.migrations.Migration2
 import javax.inject.Singleton
 
 @Module
@@ -20,7 +21,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "database").addMigrations(Migration2()).build()
     }
 
 }

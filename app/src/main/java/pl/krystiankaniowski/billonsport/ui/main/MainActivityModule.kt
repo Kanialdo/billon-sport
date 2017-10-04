@@ -7,6 +7,7 @@ import pl.krystiankaniowski.billonsport.ui.main.home.EventsFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.HomeFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.ProfileFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.SettingsFragment
+import pl.krystiankaniowski.billonsport.ui.main.players.PlayersFragment
 
 @Module
 abstract class MainActivityModule {
@@ -26,5 +27,9 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun settingsFragment(): SettingsFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    internal abstract fun playersFragment(): PlayersFragment
 
 }

@@ -9,6 +9,7 @@ import pl.krystiankaniowski.billonsport.ui.main.home.EventsFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.HomeFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.ProfileFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.SettingsFragment
+import pl.krystiankaniowski.billonsport.ui.main.players.PlayersFragment
 import pl.krystiankaniowski.billonsport.utils.ActivityUtils
 
 class MainActivity : BaseActivty() {
@@ -44,6 +45,12 @@ class MainActivity : BaseActivty() {
             }
             R.id.navigation_settings -> {
                 val fragment = SettingsFragment()
+                supportFragmentInjector()?.inject(fragment)
+                ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_players -> {
+                val fragment = PlayersFragment()
                 supportFragmentInjector()?.inject(fragment)
                 ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
                 return@OnNavigationItemSelectedListener true
