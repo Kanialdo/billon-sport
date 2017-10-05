@@ -6,13 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import butterknife.BindView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import pl.krystiankaniowski.billonsport.R
-import pl.krystiankaniowski.billonsport.core.converters.CoreConverters
-import pl.krystiankaniowski.billonsport.database.AppDatabase
+import pl.krystiankaniowski.billonsport.core.repository.PlayersRepository
 import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
 import pl.krystiankaniowski.billonsport.ui.adapter.UniversalRecyclerAdapter
@@ -29,7 +27,7 @@ class PlayersFragment @Inject constructor() : BaseFragment() {
     private lateinit var adapter: UniversalRecyclerAdapter<ViewElement>
 
     @Inject
-    lateinit var database: AppDatabase
+    lateinit var playersRepository: PlayersRepository
 
     @BindView(android.R.id.list)
     internal lateinit var recyclerAdapter: RecyclerView
@@ -55,13 +53,7 @@ class PlayersFragment @Inject constructor() : BaseFragment() {
 
         Toast.makeText(context, "subscribe", Toast.LENGTH_SHORT).show()
 
-        compositeDisposable.add(database.playerDao().getAll()
-                .flatMap({ list ->
-                    Observable.fromIterable(list)
-                            .map({ item -> CoreConverters.fromPlayerDB(item) })
-                            .toList()
-                            .toFlowable()
-                })
+        compositeDisposable.add(playersRepository.getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

@@ -5,7 +5,9 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import pl.krystiankaniowski.billonsport.core.repository.PlayersRepository
 import pl.krystiankaniowski.billonsport.database.AppDatabase
+import pl.krystiankaniowski.billonsport.database.DatabasePlayersRepository
 import pl.krystiankaniowski.billonsport.database.migrations.Migration2
 import pl.krystiankaniowski.billonsport.database.sample.DatabaseSample
 import javax.inject.Singleton
@@ -25,6 +27,12 @@ class AppModule {
         val database = Room.databaseBuilder(context, AppDatabase::class.java, "database").addMigrations(Migration2()).build()
         DatabaseSample().fillSamplePlayers(database)
         return database
+    }
+
+    @Provides
+    @Singleton
+    fun providePlayersRepository(database: AppDatabase): PlayersRepository {
+        return DatabasePlayersRepository(database)
     }
 
 }
