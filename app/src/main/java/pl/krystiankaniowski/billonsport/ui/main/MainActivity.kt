@@ -5,10 +5,10 @@ import android.support.design.widget.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.ui.BaseActivty
-import pl.krystiankaniowski.billonsport.ui.main.home.EventsFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.HomeFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.ProfileFragment
 import pl.krystiankaniowski.billonsport.ui.main.home.SettingsFragment
+import pl.krystiankaniowski.billonsport.ui.main.matches.MatchesFragment
 import pl.krystiankaniowski.billonsport.ui.main.players.PlayersFragment
 import pl.krystiankaniowski.billonsport.utils.ActivityUtils
 
@@ -32,7 +32,7 @@ class MainActivity : BaseActivty() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_events -> {
-                val fragment = EventsFragment()
+                val fragment = MatchesFragment()
                 supportFragmentInjector()?.inject(fragment)
                 ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
                 return@OnNavigationItemSelectedListener true
