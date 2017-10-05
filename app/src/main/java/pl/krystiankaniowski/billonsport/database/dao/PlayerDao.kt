@@ -8,15 +8,18 @@ import pl.krystiankaniowski.billonsport.database.entities.PlayerDB
 interface PlayerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatch(item: PlayerDB): Long
+    fun insertPlayer(item: PlayerDB): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPlayers(vararg item: PlayerDB): List<Long>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateMatch(item: PlayerDB)
+    fun updatePlayer(item: PlayerDB)
 
     @Delete
-    fun deleteMatch(item: PlayerDB)
+    fun deletePlayer(item: PlayerDB)
 
-    @Query("SELECT * FROM match")
+    @Query("SELECT * FROM player")
     fun getAll(): Flowable<List<PlayerDB>>
 
 }

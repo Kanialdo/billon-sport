@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import pl.krystiankaniowski.billonsport.database.AppDatabase
 import pl.krystiankaniowski.billonsport.database.migrations.Migration2
+import pl.krystiankaniowski.billonsport.database.sample.DatabaseSample
 import javax.inject.Singleton
 
 @Module
@@ -21,7 +22,9 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "database").addMigrations(Migration2()).build()
+        val database = Room.databaseBuilder(context, AppDatabase::class.java, "database").addMigrations(Migration2()).build()
+        DatabaseSample().fillSamplePlayers(database)
+        return database
     }
 
 }
