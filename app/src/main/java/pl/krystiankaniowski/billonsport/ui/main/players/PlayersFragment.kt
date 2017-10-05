@@ -6,11 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import butterknife.BindView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import pl.krystiankaniowski.billonsport.R
-import pl.krystiankaniowski.billonsport.core.repository.PlayersRepository
+import pl.krystiankaniowski.billonsport.core.data.Player
 import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
 import pl.krystiankaniowski.billonsport.ui.adapter.UniversalRecyclerAdapter
@@ -20,21 +17,22 @@ import pl.krystiankaniowski.billonsport.ui.adapter.delegates.PlayerDelegateAdapt
 import javax.inject.Inject
 
 @ActivityScoped
-class PlayersFragment @Inject constructor() : BaseFragment() {
-
-    private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-
-    private lateinit var adapter: UniversalRecyclerAdapter<ViewElement>
+class PlayersFragment @Inject constructor() : BaseFragment(), PlayersContract.View {
 
     @Inject
-    lateinit var playersRepository: PlayersRepository
+    internal lateinit var presenter: PlayersContract.Presenter
 
     @BindView(android.R.id.list)
     internal lateinit var recyclerAdapter: RecyclerView
 
+    private lateinit var adapter: UniversalRecyclerAdapter<ViewElement>
+
+    // ---------------------------------------------------------------------------------------------
+
     override fun getLayoutId(): Int = R.layout.fragment_players
 
     override fun prepareView(view: View) {
+
         adapter = UniversalRecyclerAdapter.Builder<ViewElement>()
                 .registerDelegatedAdapter(ViewElementType.PLAYER_ITEM.ordinal, PlayerDelegateAdapter())
                 .build()
@@ -50,27 +48,30 @@ class PlayersFragment @Inject constructor() : BaseFragment() {
     }
 
     override fun subscribePresenter() {
-
-        Toast.makeText(context, "subscribe", Toast.LENGTH_SHORT).show()
-
-        compositeDisposable.add(playersRepository.getAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { list ->
-                            Toast.makeText(context, "pop ${list.size}!", Toast.LENGTH_SHORT).show()
-                            adapter.data = list
-                            adapter.notifyDataSetChanged()
-                        },
-                        { error ->
-                            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-                        }
-                ))
-
+        presenter.takeView(this)
     }
 
     override fun unsubscribePresenter() {
-        compositeDisposable.clear()
+        presenter.dropView()
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    override fun setLoading() {
+        Toast.makeText(context, "loading", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setItems(items: List<Player>) {
+        adapter.data = items
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun setNoData(message: String?) {
+        Toast.makeText(context, "no data $message", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setError(message: String?) {
+        Toast.makeText(context, "error $message", Toast.LENGTH_SHORT).show()
     }
 
 }
