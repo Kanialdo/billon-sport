@@ -7,13 +7,13 @@ import android.view.View
 import android.widget.Toast
 import butterknife.BindView
 import pl.krystiankaniowski.billonsport.R
-import pl.krystiankaniowski.billonsport.core.data.Player
 import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
 import pl.krystiankaniowski.billonsport.ui.adapter.UniversalRecyclerAdapter
 import pl.krystiankaniowski.billonsport.ui.adapter.ViewElement
 import pl.krystiankaniowski.billonsport.ui.adapter.ViewElementType
 import pl.krystiankaniowski.billonsport.ui.adapter.delegates.PlayerDelegateAdapter
+import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
 import javax.inject.Inject
 
 @ActivityScoped
@@ -61,7 +61,7 @@ class PlayersFragment @Inject constructor() : BaseFragment(), PlayersContract.Vi
         Toast.makeText(context, "loading", Toast.LENGTH_SHORT).show()
     }
 
-    override fun setItems(items: List<Player>) {
+    override fun setItems(items: List<PlayerUI>) {
         adapter.data = items
         adapter.notifyDataSetChanged()
     }

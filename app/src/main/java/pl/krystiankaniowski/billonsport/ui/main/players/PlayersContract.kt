@@ -1,7 +1,7 @@
 package pl.krystiankaniowski.billonsport.ui.main.players
 
-import pl.krystiankaniowski.billonsport.core.data.Player
 import pl.krystiankaniowski.billonsport.mvp.BaseContract
+import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
 
 interface PlayersContract {
 
@@ -9,7 +9,7 @@ interface PlayersContract {
 
         fun setLoading()
 
-        fun setItems(items: List<Player>)
+        fun setItems(items: List<PlayerUI>)
 
         fun setNoData(message: String?)
 
