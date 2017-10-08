@@ -60,12 +60,12 @@ public class UniversalRecyclerAdapter<Type extends ViewElement> extends Recycler
         return items.size();
     }
 
-    public void setData(List<? extends Type> data) {
+    public void setData(List<Type> data) {
         items = data;
     }
 
-    public List<? extends Type> getData() {
-        return items;
+    public List<ViewElement> getData() {
+        return (List<ViewElement>) items;
     }
 
     public static class Builder<Type extends ViewElement> {

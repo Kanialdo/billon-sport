@@ -2,15 +2,15 @@ package pl.krystiankaniowski.billonsport.mvp
 
 interface BaseContract {
 
-    interface View
+	interface View
 
-    interface Presenter<in V : View> {
+	interface Presenter<in V : View> {
 
-        fun takeView(view: V)
+		fun takeView(view: V)
 
-        fun dropView()
+		fun dropView()
 
-    }
+	}
 
 }
 

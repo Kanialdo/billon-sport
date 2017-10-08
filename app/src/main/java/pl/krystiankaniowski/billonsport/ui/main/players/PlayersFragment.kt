@@ -62,7 +62,7 @@ class PlayersFragment @Inject constructor() : BaseFragment(), PlayersContract.Vi
     }
 
     override fun setItems(items: List<PlayerUI>) {
-        adapter.data = items
+       // adapter.data = items
         adapter.notifyDataSetChanged()
     }
 

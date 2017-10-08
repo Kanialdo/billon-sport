@@ -41,7 +41,7 @@ class AddMatchActivity : BaseActivty(), AddMatchNavigator {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showConfirmationView() {
+    override fun showMatchView() {
         val fragment = ConfirmMatchFragment()
         supportFragmentInjector()?.inject(fragment)
         ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)

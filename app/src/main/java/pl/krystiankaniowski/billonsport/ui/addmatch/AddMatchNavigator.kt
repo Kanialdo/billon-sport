@@ -6,6 +6,6 @@ interface AddMatchNavigator {
 
     fun showProcessingView()
 
-    fun showConfirmationView()
+    fun showMatchView()
 
 }
