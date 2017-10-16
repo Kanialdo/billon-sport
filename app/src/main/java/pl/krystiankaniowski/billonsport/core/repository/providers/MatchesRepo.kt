@@ -1,9 +1,9 @@
-package pl.krystiankaniowski.billonsport.core.repository
+package pl.krystiankaniowski.billonsport.core.repository.providers
 
 import pl.krystiankaniowski.billonsport.core.data.Match
 import pl.krystiankaniowski.billonsport.core.repository.exceptions.RepoException
 
-interface MatchesRepo : CommonRepository<Match> {
+interface MatchesRepo : CommonRepo<Match> {
 
 	@Throws(RepoException::class)
 	fun getPlayerMatches(playerId: Long): List<Match>

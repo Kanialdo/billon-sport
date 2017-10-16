@@ -1,10 +1,10 @@
-package pl.krystiankaniowski.billonsport.core.repository
+package pl.krystiankaniowski.billonsport.core.repository.providers
 
 import io.reactivex.Flowable
 import io.reactivex.Single
 import pl.krystiankaniowski.billonsport.core.repository.exceptions.RepoException
 
-interface CommonRepository<T> {
+interface CommonRepo<T> {
 
 	@Throws(RepoException::class)
 	fun insert(item: T)

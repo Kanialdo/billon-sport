@@ -25,8 +25,8 @@ class PlayersPresenter @Inject constructor() : BasePresenter<PlayersContract.Vie
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
-						{ list -> view?.setItems(list) },
-						{ error -> view?.setError(error.message) }
+						{ list -> view?.setItems(list.toMutableList()) },
+						{ error -> view?.setLoadingDataError(error.message) }
 				))
 
 	}
