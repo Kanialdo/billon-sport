@@ -22,15 +22,14 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 	private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
 	private var dataReadyToProcessing = false
-	private var selectedItems: Set<SelectablePlayerUI> = HashSet()
+	private var selectedIds: Set<Long> = HashSet()
 	private lateinit var list: MutableList<SelectablePlayerUI>
 
 	// ---------------------------------------------------------------------------------------------
 
 	override fun onSubscribe() {
 
-		dataReadyToProcessing = false
-		view?.setNextButtonEnable(dataReadyToProcessing)
+		view?.setNextButtonEnable(false)
 
 		compositeDisposable.add(repository.getPlayers().getAll()
 				.flatMap({ list -> QuickConverters.convert(list, { item -> SelectablePlayerUI(PlayerUI.fromPlayer(item), false) }) })
@@ -40,7 +39,6 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 						{ list ->
 							this.list = list.toMutableList()
 							view?.setItems(this.list)
-							view?.setNextButtonEnable(dataReadyToProcessing)
 						},
 						{ error ->
 							view?.setLoadingDataError(error.message)
@@ -57,11 +55,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 
 	override fun onNext() {
 
-		if (!dataReadyToProcessing) {
-			throw IllegalStateException()
-		}
-
-		when (selectedItems.size) {
+		when (selectedIds.size) {
 			0 -> {
 				view?.showError("Nie wybrano żadnego gracza")
 			}
@@ -70,26 +64,28 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 			}
 			else -> {
 				navigator.showProcessingView()
-				TODO()
 			}
 		}
 
 	}
 
 	override fun onPlayerClick(player: SelectablePlayerUI) {
-		if (!selectedItems.contains(player)) {
-			selectedItems.plus(player)
+
+		if (!selectedIds.contains(player.id)) {
+			selectedIds = selectedIds.plus(player.id)
 			val id = findItem(player)
 			player.clicked = true
 			list[id] = player
 			view?.updateItem(player, id)
 		} else {
-			selectedItems.minus(player)
+			selectedIds = selectedIds.minus(player.id)
 			val id = findItem(player)
 			player.clicked = false
 			list[id] = player
 			view?.updateItem(player, id)
 		}
+
+		view?.setNextButtonEnable(selectedIds.size > 1)
 
 	}
 
