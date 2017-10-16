@@ -6,6 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import pl.krystiankaniowski.billonsport.core.repository.PlayersRepository
 import pl.krystiankaniowski.billonsport.mvp.BasePresenter
 import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchNavigator
+import pl.krystiankaniowski.billonsport.ui.addmatch.select.adapter.SelectablePlayerUI
 import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
 import pl.krystiankaniowski.billonsport.utils.rx.QuickConverters
 import javax.inject.Inject
@@ -21,8 +22,8 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 	private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
 	private var dataReadyToProcessing = false
-	private var selectedItems: Set<SelectPlayersContract.SelectablePlayerUI> = HashSet()
-	private lateinit var list: MutableList<SelectPlayersContract.SelectablePlayerUI>
+	private var selectedItems: Set<SelectablePlayerUI> = HashSet()
+	private lateinit var list: MutableList<SelectablePlayerUI>
 
 	// ---------------------------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 		view?.setNextButtonEnable(dataReadyToProcessing)
 
 		compositeDisposable.add(playersRepository.getAll()
-				.flatMap({ list -> QuickConverters.convert(list, { item -> SelectPlayersContract.SelectablePlayerUI(PlayerUI.fromPlayer(item), false) }) })
+				.flatMap({ list -> QuickConverters.convert(list, { item -> SelectablePlayerUI(PlayerUI.fromPlayer(item), false) }) })
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
@@ -75,7 +76,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 
 	}
 
-	override fun onPlayerClick(player: SelectPlayersContract.SelectablePlayerUI) {
+	override fun onPlayerClick(player: SelectablePlayerUI) {
 		if (!selectedItems.contains(player)) {
 			selectedItems.plus(player)
 			val id = findItem(player)
@@ -92,7 +93,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 
 	}
 
-	private fun findItem(searching: SelectPlayersContract.SelectablePlayerUI): Int {
+	private fun findItem(searching: SelectablePlayerUI): Int {
 		var i = 0
 		for (item in list) {
 			if (item.equals(searching)) {

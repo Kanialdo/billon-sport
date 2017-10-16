@@ -10,7 +10,7 @@ import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
 import pl.krystiankaniowski.billonsport.ui.adapter.UniversalRecyclerAdapter
 import pl.krystiankaniowski.billonsport.ui.adapter.ViewElement
 import pl.krystiankaniowski.billonsport.ui.adapter.ViewElementType
-import pl.krystiankaniowski.billonsport.ui.adapter.delegates.SelectPlayerDelegateAdapter
+import pl.krystiankaniowski.billonsport.ui.addmatch.select.adapter.SelectPlayerDelegateAdapter
 import pl.krystiankaniowski.billonsport.ui.base.BaseListFragment
 import javax.inject.Inject
 
