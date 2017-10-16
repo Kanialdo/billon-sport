@@ -3,7 +3,7 @@ package pl.krystiankaniowski.billonsport.ui.addmatch.select
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import pl.krystiankaniowski.billonsport.core.repository.PlayersRepository
+import pl.krystiankaniowski.billonsport.core.repository.Repository
 import pl.krystiankaniowski.billonsport.mvp.BasePresenter
 import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchNavigator
 import pl.krystiankaniowski.billonsport.ui.addmatch.select.adapter.SelectablePlayerUI
@@ -17,7 +17,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 	lateinit var navigator: AddMatchNavigator
 
 	@Inject
-	lateinit var playersRepository: PlayersRepository
+	lateinit var repository: Repository
 
 	private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
@@ -32,7 +32,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 		dataReadyToProcessing = false
 		view?.setNextButtonEnable(dataReadyToProcessing)
 
-		compositeDisposable.add(playersRepository.getAll()
+		compositeDisposable.add(repository.getPlayers().getAll()
 				.flatMap({ list -> QuickConverters.convert(list, { item -> SelectablePlayerUI(PlayerUI.fromPlayer(item), false) }) })
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())

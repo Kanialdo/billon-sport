@@ -5,4 +5,5 @@ data class Player(
 		var nickname: String,
 		var firstName: String,
 		var lastName: String,
-		var rating: Rating)
+		var rating: Rating
+)
