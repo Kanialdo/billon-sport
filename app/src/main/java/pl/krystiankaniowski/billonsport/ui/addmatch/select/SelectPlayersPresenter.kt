@@ -5,7 +5,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import pl.krystiankaniowski.billonsport.core.repository.Repository
 import pl.krystiankaniowski.billonsport.mvp.BasePresenter
-import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchNavigator
+import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchFlow
 import pl.krystiankaniowski.billonsport.ui.addmatch.select.adapter.SelectablePlayerUI
 import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
 import pl.krystiankaniowski.billonsport.utils.rx.QuickConverters
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayersContract.View>(), SelectPlayersContract.Presenter {
 
 	@Inject
-	lateinit var navigator: AddMatchNavigator
+	lateinit var flow: AddMatchFlow
 
 	@Inject
 	lateinit var repository: Repository
@@ -63,7 +63,8 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 				view?.showError("Z jednego gracza nie skompletujesz dwóch drużyn")
 			}
 			else -> {
-				navigator.showProcessingView()
+				flow.getBundle().playersIds = selectedIds
+				flow.showProcessingView()
 			}
 		}
 

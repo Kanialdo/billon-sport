@@ -1,6 +1,5 @@
 package pl.krystiankaniowski.billonsport.ui.addmatch.select
 
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import butterknife.BindView
@@ -26,14 +25,6 @@ class SelectPlayersFragment @Inject constructor() : BaseListFragment(), SelectPl
 	// ---------------------------------------------------------------------------------------------
 
 	override fun getLayoutId(): Int = R.layout.fragment_add_match_select_players
-
-	override fun prepareView(view: View) {
-		super.prepareView(view)
-	}
-
-	override fun dropView() {
-		super.dropView()
-	}
 
 	override fun subscribePresenter() {
 		presenter.takeView(this)

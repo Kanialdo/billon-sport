@@ -6,7 +6,7 @@ import javax.inject.Inject
 class ConfirmMatchPresenter @Inject constructor() : BasePresenter<ConfirmMatchContract.View>(), ConfirmMatchContract.Presenter {
 
     @Inject
-    lateinit var navigator: AddMatchNavigator
+    lateinit var flow: AddMatchFlow
 
     // ---------------------------------------------------------------------------------------------
 

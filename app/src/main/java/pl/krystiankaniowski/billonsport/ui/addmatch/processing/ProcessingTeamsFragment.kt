@@ -5,24 +5,27 @@ import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
 import javax.inject.Inject
 
-class ProcessingTeamsFragment @Inject constructor() : BaseFragment() {
+class ProcessingTeamsFragment @Inject constructor() : BaseFragment(), ProcessingTeamsContract.View {
 
-	override fun dropView() {
-		//TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-	}
+	@Inject
+	internal lateinit var presenter: ProcessingTeamsContract.Presenter
 
 	override fun getLayoutId(): Int = R.layout.fragment_add_match_processing_teams
 
+	override fun prepareView(view: View) {
+	}
+
+	override fun dropView() {
+	}
+
 	override fun subscribePresenter() {
-		//TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		presenter.takeView(this)
 	}
 
 	override fun unsubscribePresenter() {
-		//TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		presenter.dropView()
 	}
 
-	override fun prepareView(view: View) {
-		//TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-	}
+	// ---------------------------------------------------------------------------------------------
 
 }

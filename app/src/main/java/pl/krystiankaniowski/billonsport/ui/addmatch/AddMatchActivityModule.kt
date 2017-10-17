@@ -22,15 +22,15 @@ abstract class AddMatchActivityModule {
 
 	@FragmentScoped
 	@ContributesAndroidInjector
-	internal abstract fun confirmMatchFragment(): ConfirmMatchFragment
+	internal abstract fun processingTeamsFragment(): ProcessingTeamsFragment
 
 	@FragmentScoped
 	@ContributesAndroidInjector
-	internal abstract fun processingTeamsFragment(): ProcessingTeamsFragment
+	internal abstract fun confirmMatchFragment(): ConfirmMatchFragment
 
 	@ActivityScoped
 	@Binds
-	internal abstract fun navigator(activity: AddMatchActivity): AddMatchNavigator
+	internal abstract fun navigator(activity: AddMatchActivity): AddMatchFlow
 
 	@ActivityScoped
 	@Binds
@@ -38,10 +38,10 @@ abstract class AddMatchActivityModule {
 
 	@ActivityScoped
 	@Binds
-	internal abstract fun confirmMatchPresenter(presenter: ConfirmMatchPresenter): ConfirmMatchContract.Presenter
+	internal abstract fun processingTeamsPresenter(presenter: ProcessingTeamsPresenter): ProcessingTeamsContract.Presenter
 
 	@ActivityScoped
 	@Binds
-	internal abstract fun processingTeamsPresenter(presenter: ProcessingTeamsPresenter): ProcessingTeamsContract.Presenter
+	internal abstract fun confirmMatchPresenter(presenter: ConfirmMatchPresenter): ConfirmMatchContract.Presenter
 
 }
