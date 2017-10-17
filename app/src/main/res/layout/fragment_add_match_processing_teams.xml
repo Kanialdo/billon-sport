@@ -89,12 +89,12 @@
 			android:text="@string/action_shuffle"/>
 
 		<Button
-			android:id="@+id/b_next"
+			android:id="@+id/b_create"
 			style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:enabled="false"
-			android:text="@string/action_next"/>
+			android:text="@string/action_create_match"/>
 
 	</LinearLayout>
 

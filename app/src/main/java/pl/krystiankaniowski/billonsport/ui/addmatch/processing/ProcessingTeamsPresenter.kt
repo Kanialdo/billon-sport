@@ -29,16 +29,17 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 	override fun onUnsubscribe() {
 	}
 
-	override fun shuffle() {
+	override fun shuffleButtonClicked() {
 		getPlayers()
 	}
 
-	override fun next() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun createMatchButtonClicked() {
 	}
 
 	private fun getPlayers() {
 
+		view?.setShufflingButtonEnable(false)
+		view?.setCreateButtonEnable(false)
 		view?.setShufflingView("Losowanie")
 
 		repo.getPlayers().getAll()
@@ -61,6 +62,8 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 		val uiTeam1 = team1.map { PlayerUI.fromPlayer(it) }
 		val uiTeam2 = team2.map { PlayerUI.fromPlayer(it) }
 
+		view?.setShufflingButtonEnable(true)
+		view?.setCreateButtonEnable(true)
 		view?.setResultView(uiTeam1, uiTeam2, "MatchQuality to $matchQuality")
 
 	}

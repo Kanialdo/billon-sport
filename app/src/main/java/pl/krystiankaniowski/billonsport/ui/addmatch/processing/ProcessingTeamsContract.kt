@@ -13,13 +13,17 @@ interface ProcessingTeamsContract {
 
 		fun setErrorView(message: String?)
 
+		fun setShufflingButtonEnable(enable: Boolean)
+
+		fun setCreateButtonEnable(enable: Boolean)
+
 	}
 
 	interface Presenter : BaseContract.Presenter<View> {
 
-		fun shuffle()
+		fun shuffleButtonClicked()
 
-		fun next()
+		fun createMatchButtonClicked()
 
 	}
 

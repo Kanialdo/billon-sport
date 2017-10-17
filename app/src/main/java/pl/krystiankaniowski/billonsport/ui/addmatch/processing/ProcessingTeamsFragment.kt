@@ -48,16 +48,24 @@ class ProcessingTeamsFragment @Inject constructor() : BaseFragment(), Processing
 		tv_error.text = message
 	}
 
+	override fun setShufflingButtonEnable(enable: Boolean) {
+		b_shuffle.isEnabled = enable
+	}
+
+	override fun setCreateButtonEnable(enable: Boolean) {
+		b_create.isEnabled = enable
+	}
+
 	// ---------------------------------------------------------------------------------------------
 
 	@OnClick(R.id.b_shuffle)
 	internal fun shuffle() {
-		presenter.shuffle()
+		presenter.shuffleButtonClicked()
 	}
 
-	@OnClick(R.id.b_next)
-	internal fun next() {
-		presenter.next()
+	@OnClick(R.id.b_create)
+	internal fun create() {
+		presenter.createMatchButtonClicked()
 	}
 
 }
