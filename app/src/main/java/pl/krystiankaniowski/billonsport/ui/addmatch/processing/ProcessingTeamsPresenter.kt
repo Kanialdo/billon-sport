@@ -8,6 +8,7 @@ import pl.krystiankaniowski.billonsport.core.shuffler.TrueSkillShuffler
 import pl.krystiankaniowski.billonsport.mvp.BasePresenter
 import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchFlow
 import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
+import java.util.*
 import javax.inject.Inject
 
 class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingTeamsContract.View>(), ProcessingTeamsContract.Presenter {
@@ -53,6 +54,8 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 	}
 
 	private fun processTeams(list: List<Player>) {
+
+		Collections.shuffle(list)
 
 		val team1 = list.filterIndexed({ id, _ -> id % 2 == 0 })
 		val team2 = list.filterIndexed({ id, _ -> id % 2 == 1 })
