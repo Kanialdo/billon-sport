@@ -60,4 +60,6 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
 
+    implementation "org.ejml:ejml-all:0.32"
+
 }

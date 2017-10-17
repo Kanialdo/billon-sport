@@ -1,8 +1,11 @@
 package pl.krystiankaniowski.billonsport.ui.addmatch.processing
 
 import android.view.View
+import butterknife.OnClick
+import kotlinx.android.synthetic.main.fragment_add_match_processing_teams.*
 import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
+import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
 import javax.inject.Inject
 
 class ProcessingTeamsFragment @Inject constructor() : BaseFragment(), ProcessingTeamsContract.View {
@@ -27,5 +30,34 @@ class ProcessingTeamsFragment @Inject constructor() : BaseFragment(), Processing
 	}
 
 	// ---------------------------------------------------------------------------------------------
+
+	override fun setShufflingView(message: String) {
+		view_flipper.displayedChild = view_flipper.indexOfChild(ll_loading)
+		tv_loading.text = message
+	}
+
+	override fun setResultView(team1: List<PlayerUI>, team2: List<PlayerUI>, qualityMessage: String) {
+		view_flipper.displayedChild = view_flipper.indexOfChild(ll_result)
+		text.text = team1.map { it.nickname }.toString()
+		text2.text = team2.map { it.nickname }.toString()
+		tv_quality.text = qualityMessage
+	}
+
+	override fun setErrorView(message: String?) {
+		view_flipper.displayedChild = view_flipper.indexOfChild(ll_error)
+		tv_error.text = message
+	}
+
+	// ---------------------------------------------------------------------------------------------
+
+	@OnClick(R.id.b_shuffle)
+	internal fun shuffle() {
+		presenter.shuffle()
+	}
+
+	@OnClick(R.id.b_next)
+	internal fun next() {
+		presenter.next()
+	}
 
 }
