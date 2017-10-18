@@ -36,5 +36,6 @@ ext {
     rxKotlinVersion = "2.1.0"
     rxBindingsKotlinVersion = "2.0.0"
     roomVersion = "1.0.0-alpha9-1"
+    retrofitVersion = "2.3.0"
 
 }

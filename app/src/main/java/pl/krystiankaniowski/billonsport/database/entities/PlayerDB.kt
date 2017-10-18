@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "player")
 class PlayerDB() {
 
-    constructor(id: Long, nickname: String, firstName: String, lastName: String, mean: Float, unconfident: Float) : this() {
+    constructor(id: String, nickname: String, firstName: String, lastName: String, mean: Float, unconfident: Float) : this() {
         this.id = id
         this.nickname = nickname
         this.firstName = firstName
@@ -18,7 +18,7 @@ class PlayerDB() {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: Long = -1
+    var id: String = ""
 
     @ColumnInfo(name = "nickname")
     lateinit var nickname: String

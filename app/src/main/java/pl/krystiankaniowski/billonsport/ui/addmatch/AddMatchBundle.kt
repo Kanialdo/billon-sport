@@ -4,6 +4,6 @@ import javax.inject.Inject
 
 class AddMatchBundle @Inject constructor() {
 
-	var playersIds: Set<Long> = HashSet()
+	var playersIds: Set<String> = HashSet()
 
 }

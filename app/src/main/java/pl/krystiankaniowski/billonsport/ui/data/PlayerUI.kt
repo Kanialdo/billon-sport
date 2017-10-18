@@ -5,7 +5,7 @@ import pl.krystiankaniowski.billonsport.ui.adapter.ViewElement
 import pl.krystiankaniowski.billonsport.ui.adapter.ViewElementType
 
 open class PlayerUI(
-		val id: Long,
+		val id: String,
 		val nickname: String,
 		val fullName: String,
 		val ratingMean: String,

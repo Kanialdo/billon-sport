@@ -22,7 +22,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 	private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
 	private var dataReadyToProcessing = false
-	private var selectedIds: Set<Long> = HashSet()
+	private var selectedIds: Set<String> = HashSet()
 	private lateinit var list: MutableList<SelectablePlayerUI>
 
 	// ---------------------------------------------------------------------------------------------

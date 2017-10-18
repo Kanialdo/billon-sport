@@ -1,5 +1,6 @@
 package pl.krystiankaniowski.billonsport.ui.addmatch.select.adapter
 
+import android.support.v4.content.ContextCompat
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -24,7 +25,8 @@ class SelectPlayerDelegateAdapter(val onClick: ((SelectablePlayerUI) -> Unit)?) 
 			lateinit var tvName: TextView
 
 			override fun bind(item: SelectablePlayerUI?) {
-				tvNickname.text = item?.nickname + " " + item?.clicked
+				itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, (if (item?.clicked ?: false) android.R.color.holo_green_dark else android.R.color.white)))
+				tvNickname.text = item?.nickname
 				tvName.text = item?.fullName
 				llContainer.isClickable = true
 			}

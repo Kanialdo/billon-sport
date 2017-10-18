@@ -7,8 +7,8 @@ import dagger.Module
 import dagger.Provides
 import pl.krystiankaniowski.billonsport.core.repository.Repository
 import pl.krystiankaniowski.billonsport.database.AppDatabase
-import pl.krystiankaniowski.billonsport.database.plugin.RoomRepository
 import pl.krystiankaniowski.billonsport.database.sample.DatabaseSample
+import pl.krystiankaniowski.billonsport.repo.remote.FrodoRepo
 import javax.inject.Singleton
 
 @Module
@@ -28,10 +28,18 @@ class AppModule {
 		return database
 	}
 
+//	@Local
+//	@Provides
+//	@Singleton
+//	fun provideLocalRepository(database: AppDatabase): Repository {
+//		return RoomRepository(database)
+//	}
+
+//	@Remote
 	@Provides
 	@Singleton
-	fun provideRepository(database: AppDatabase): Repository {
-		return RoomRepository(database)
+	fun provideRemoteRepository(): Repository {
+		return FrodoRepo()
 	}
 
 }
