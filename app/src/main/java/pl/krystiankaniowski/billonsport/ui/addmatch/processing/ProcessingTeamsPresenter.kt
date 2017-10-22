@@ -2,6 +2,7 @@ package pl.krystiankaniowski.billonsport.ui.addmatch.processing
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import pl.krystiankaniowski.billonsport.core.data.Player
+import pl.krystiankaniowski.billonsport.core.data.Rating
 import pl.krystiankaniowski.billonsport.core.repository.Repository
 import pl.krystiankaniowski.billonsport.core.shuffler.Shuffler
 import pl.krystiankaniowski.billonsport.core.shuffler.TrueSkillShuffler
@@ -69,6 +70,20 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 		view?.setCreateButtonEnable(true)
 		view?.setResultView(uiTeam1, uiTeam2, "MatchQuality to $matchQuality")
 
+	}
+
+	internal fun createVirtualPlayer(players: List<Player>): Player? {
+		return if (players.size % 2 > 0) {
+			var averageMean = 0f
+			var averageUnconfident = 0f
+			for (player in players) {
+				averageMean += player.rating.mean
+				averageUnconfident += player.rating.unconfident
+			}
+			Player("0", "virtual", "virtual", "virtual", Rating(averageMean / players.size, averageUnconfident / players.size), true)
+		} else {
+			null
+		}
 	}
 
 }
