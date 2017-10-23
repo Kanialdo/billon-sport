@@ -1,8 +1,7 @@
 package pl.krystiankaniowski.billonsport.ui.addmatch.processing
 
 import io.reactivex.android.schedulers.AndroidSchedulers
-import pl.krystiankaniowski.billonsport.core.data.Player
-import pl.krystiankaniowski.billonsport.core.data.Rating
+import pl.krystiankaniowski.billonsport.core.data.*
 import pl.krystiankaniowski.billonsport.core.repository.Repository
 import pl.krystiankaniowski.billonsport.core.shuffler.Shuffler
 import pl.krystiankaniowski.billonsport.core.shuffler.TrueSkillShuffler
@@ -22,6 +21,8 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 	@Inject
 	lateinit var flow: AddMatchFlow
 
+	private var match: Match? = null
+
 	var shuffler: Shuffler = TrueSkillShuffler()
 
 	override fun onSubscribe() {
@@ -36,9 +37,13 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 	}
 
 	override fun createMatchButtonClicked() {
+		repo.getMatches().insert(match!!)
+		flow.showMatchView()
 	}
 
 	private fun getPlayers() {
+
+		match = null
 
 		view?.setShufflingButtonEnable(false)
 		view?.setCreateButtonEnable(false)
@@ -48,7 +53,15 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 				.map { list -> list.filter { player -> player.id in flow.getBundle().playersIds } }
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
-						{ list -> processTeams(list) },
+						{ list ->
+							if (list.size % 2 != 0) {
+								val list2 = list.toMutableList()
+								list2.add(createVirtualPlayer(list)!!)
+								processTeams(list2.toList())
+							} else {
+								processTeams(list)
+							}
+						},
 						{ error -> view?.setErrorView(error.message) }
 				)
 
@@ -65,6 +78,8 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 
 		val uiTeam1 = team1.map { PlayerUI.fromPlayer(it) }
 		val uiTeam2 = team2.map { PlayerUI.fromPlayer(it) }
+
+		match = Match("0", 0, Team(team1.toSet()), Team(team2.toSet()), MatchResult.UNKNOWN)
 
 		view?.setShufflingButtonEnable(true)
 		view?.setCreateButtonEnable(true)

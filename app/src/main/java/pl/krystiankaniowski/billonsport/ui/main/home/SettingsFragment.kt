@@ -1,7 +1,10 @@
 package pl.krystiankaniowski.billonsport.ui.main.home
 
 import android.view.View
+import butterknife.OnClick
 import pl.krystiankaniowski.billonsport.R
+import pl.krystiankaniowski.billonsport.database.AppDatabase
+import pl.krystiankaniowski.billonsport.database.sample.DatabaseSample
 import pl.krystiankaniowski.billonsport.di.scopes.ActivityScoped
 import pl.krystiankaniowski.billonsport.ui.BaseFragment
 import javax.inject.Inject
@@ -9,18 +12,28 @@ import javax.inject.Inject
 @ActivityScoped
 class SettingsFragment @Inject constructor() : BaseFragment() {
 
-    override fun getLayoutId(): Int = R.layout.fragment_settings
+	private val TAG = "SettingsFragment"
 
-    override fun prepareView(view: View) {
-    }
+	@Inject
+	lateinit var database: AppDatabase
 
-    override fun dropView() {
-    }
+	override fun getLayoutId(): Int = R.layout.fragment_settings
 
-    override fun subscribePresenter() {
-    }
+	override fun prepareView(view: View) {
+	}
 
-    override fun unsubscribePresenter() {
-    }
+	override fun dropView() {
+	}
+
+	override fun subscribePresenter() {
+	}
+
+	override fun unsubscribePresenter() {
+	}
+
+	@OnClick(R.id.button)
+	fun generateDataClick() {
+		DatabaseSample().fillSamplePlayers(database)
+	}
 
 }

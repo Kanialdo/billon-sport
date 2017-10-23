@@ -8,7 +8,7 @@ class DatabaseConverters {
 
     companion object {
 
-        fun toCorePlayer(player: PlayerDB) = Player(player.id, player.nickname, player.firstName, player.lastName, Rating(player.ratingMean, player.ratingUnconfident))
+        fun toCorePlayer(player: PlayerDB) = Player(player.id, player.nickname, player.firstName, player.lastName, Rating(player.ratingMean, player.standardDeviation))
 
         fun fromCorePlayer(player: Player) = PlayerDB(player.id, player.nickname, player.firstName, player.lastName, player.rating.mean, player.rating.standardDeviation)
 

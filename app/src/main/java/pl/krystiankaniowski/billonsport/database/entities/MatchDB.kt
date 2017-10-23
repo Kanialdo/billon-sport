@@ -3,27 +3,31 @@ package pl.krystiankaniowski.billonsport.database.entities
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import pl.krystiankaniowski.billonsport.core.data.Match
+import pl.krystiankaniowski.billonsport.core.data.MatchResult
+import pl.krystiankaniowski.billonsport.core.data.Team
 
 @Entity(tableName = "match")
-class MatchDB {
+class MatchDB() {
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    var id: Long = -1
+	constructor(id: String, date: Long, result: MatchResult) : this() {
+		this.id = id
+		this.date = date
+		this.result = 0
+	}
 
-    @ColumnInfo(name = "quality")
-    var name: String = ""
+	@PrimaryKey
+	@ColumnInfo(name = "id")
+	lateinit var id: String
 
-    @ColumnInfo(name = "date")
-    var date: Long = -1
+	@ColumnInfo(name = "date")
+	var date: Long = -1
 
-    @ColumnInfo(name = "team_a_id")
-    var teamAid: Long = -1
+	@ColumnInfo(name = "result")
+	var result: Int = -1
 
-    @ColumnInfo(name = "team_b_id")
-    var teamBid: Long = -1
+}
 
-    @ColumnInfo(name = "winner")
-    var winner: Int = 0
-
+fun MatchDB.toCoreMatch(): Match {
+	return Match(this.id, this.date, Team(setOf()), Team(setOf()), MatchResult.UNKNOWN)
 }

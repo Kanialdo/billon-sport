@@ -4,7 +4,6 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
 import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.ui.BaseActivty
-import pl.krystiankaniowski.billonsport.ui.addmatch.confirm.ConfirmMatchFragment
 import pl.krystiankaniowski.billonsport.ui.addmatch.processing.ProcessingTeamsFragment
 import pl.krystiankaniowski.billonsport.ui.addmatch.select.SelectPlayersFragment
 import pl.krystiankaniowski.billonsport.utils.ActivityUtils
@@ -48,9 +47,10 @@ class AddMatchActivity : BaseActivty(), AddMatchFlow {
 	}
 
 	override fun showMatchView() {
-		val fragment = ConfirmMatchFragment()
-		supportFragmentInjector()?.inject(fragment)
-		ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+		finish()
+		//val fragment = ConfirmMatchFragment()
+		//supportFragmentInjector()?.inject(fragment)
+		//ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
 	}
 
 	override fun getBundle(): AddMatchBundle = addMatchBundle

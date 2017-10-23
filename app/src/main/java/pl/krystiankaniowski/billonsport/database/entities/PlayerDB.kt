@@ -7,13 +7,13 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "player")
 class PlayerDB() {
 
-    constructor(id: String, nickname: String, firstName: String, lastName: String, mean: Float, unconfident: Float) : this() {
+    constructor(id: String, nickname: String, firstName: String, lastName: String, mean: Float, standardDeviation: Float) : this() {
         this.id = id
         this.nickname = nickname
         this.firstName = firstName
         this.lastName = lastName
         this.ratingMean = mean
-        this.ratingUnconfident = unconfident
+        this.standardDeviation = standardDeviation
     }
 
     @PrimaryKey
@@ -32,8 +32,8 @@ class PlayerDB() {
     @ColumnInfo(name = "rating_mean")
     var ratingMean: Float = -1.0f
 
-    @ColumnInfo(name = "date_unconfident")
-    var ratingUnconfident: Float = -1.0f
+    @ColumnInfo(name = "standardDeviation")
+    var standardDeviation: Float = -1.0f
 
 
 }
