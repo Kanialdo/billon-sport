@@ -20,7 +20,7 @@ class TeamCalculationsTest {
 
 			for (player in players) {
 				avargeMean += player.rating.mean
-				avargeUnconfident += player.rating.unconfident
+				avargeUnconfident += player.rating.standardDeviation
 			}
 
 

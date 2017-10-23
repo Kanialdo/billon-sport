@@ -5,5 +5,6 @@ public enum ViewElementType {
     LOADING_ITEM,
     MESSAGE_ITEM,
     PLAYER_ITEM,
+    MATCH_ITEM
 
 }

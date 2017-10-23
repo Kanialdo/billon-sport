@@ -4,8 +4,16 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import pl.krystiankaniowski.billonsport.core.data.Match
 import pl.krystiankaniowski.billonsport.core.repository.providers.MatchesRepo
+import pl.krystiankaniowski.billonsport.repo.remote.FrodoMatchApi
+import retrofit2.Retrofit
 
 class FrodoMatchesRepo : MatchesRepo {
+
+	private val service: FrodoMatchApi
+
+	constructor(retrofit: Retrofit) {
+		service = retrofit.create(FrodoMatchApi::class.java)
+	}
 
 	override fun insert(item: Match) {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -29,6 +37,7 @@ class FrodoMatchesRepo : MatchesRepo {
 
 	override fun getAll(): Flowable<List<Match>> {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		//return service.getMatches().map { it -> it.map { webMatch -> webMatch.toMatch() } }
 	}
 
 }

@@ -1,19 +1,24 @@
 package pl.krystiankaniowski.billonsport.ui.main.matches
 
-import pl.krystiankaniowski.billonsport.mvp.BaseContract
+import pl.krystiankaniowski.billonsport.mvp.BaseListContract
+import pl.krystiankaniowski.billonsport.ui.data.MatchUI
 
 interface MatchesContract {
 
-    interface View : BaseContract.View {
+	interface View : BaseListContract.View {
 
-        fun showAddMatchView()
+		fun showAddMatchView()
 
-    }
+		fun showMatchDetailsView(id: String)
 
-    interface Presenter : BaseContract.Presenter<View> {
+	}
 
-        fun addButtonClicked()
+	interface Presenter : BaseListContract.Presenter<View> {
 
-    }
+		fun addButtonClicked()
+
+		fun click(item: MatchUI)
+
+	}
 
 }

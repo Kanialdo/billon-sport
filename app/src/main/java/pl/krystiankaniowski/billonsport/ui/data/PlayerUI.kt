@@ -17,7 +17,7 @@ open class PlayerUI(
 				player.nickname,
 				player.firstName + " " + player.lastName,
 				player.rating.mean.toString(),
-				player.rating.unconfident.toString())
+				player.rating.standardDeviation.toString())
 
 	}
 

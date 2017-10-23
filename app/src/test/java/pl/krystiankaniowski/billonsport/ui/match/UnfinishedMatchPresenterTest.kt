@@ -31,7 +31,7 @@ class UnfinishedMatchPresenter {
 	val shuffler: Shuffler = TrueSkillShuffler()
 
 	fun process(team1: List<Player>, team2: List<Player>, result: Shuffler.MatchResult): List<Player> {
-		return shuffler.calculateNewRatings(team1, team2, result)
+		return shuffler.calculateNewRatings(team1, team2, result).filter { !it.virtual }
 	}
 
 }

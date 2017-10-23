@@ -1,8 +1,9 @@
 package pl.krystiankaniowski.billonsport.core.data
 
 data class Match(
-		var id: Long,
+		var id: String,
 		var date: Long,
-		var teams: List<Team>,
-		var winner: Int?
+		var team1: Team,
+		var team2: Team,
+		var result: MatchResult
 )

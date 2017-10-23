@@ -28,7 +28,7 @@ class FrodoRepo : Repository {
 				.build()
 
 		players = FrodoPlayersRepo(retrofit)
-		matches = FrodoMatchesRepo()
+		matches = FrodoMatchesRepo(retrofit)
 		rating = FrodoRatingRepo()
 
 	}

@@ -31,7 +31,7 @@ class TrueSkillShuffler : Shuffler {
 private fun List<Player>.toSkillTeam(): ITeam {
 	val output = jskills.Team()
 	for (player in this) {
-		output.addPlayer(jskills.Player(player.id), jskills.Rating(player.rating.mean.toDouble(), player.rating.unconfident.toDouble()))
+		output.addPlayer(jskills.Player(player.id), jskills.Rating(player.rating.mean.toDouble(), player.rating.standardDeviation.toDouble()))
 	}
 	return output
 }

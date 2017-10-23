@@ -78,7 +78,7 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 			var averageUnconfident = 0f
 			for (player in players) {
 				averageMean += player.rating.mean
-				averageUnconfident += player.rating.unconfident
+				averageUnconfident += player.rating.standardDeviation
 			}
 			Player("0", "virtual", "virtual", "virtual", Rating(averageMean / players.size, averageUnconfident / players.size), true)
 		} else {
