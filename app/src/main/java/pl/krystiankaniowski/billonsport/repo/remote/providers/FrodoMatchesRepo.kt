@@ -3,6 +3,7 @@ package pl.krystiankaniowski.billonsport.repo.remote.providers
 import io.reactivex.Flowable
 import io.reactivex.Single
 import pl.krystiankaniowski.billonsport.core.data.Match
+import pl.krystiankaniowski.billonsport.core.data.Team
 import pl.krystiankaniowski.billonsport.core.repository.providers.MatchesRepo
 import pl.krystiankaniowski.billonsport.repo.remote.FrodoMatchApi
 import retrofit2.Retrofit
@@ -40,4 +41,7 @@ class FrodoMatchesRepo : MatchesRepo {
 		//return service.getMatches().map { it -> it.map { webMatch -> webMatch.toMatch() } }
 	}
 
+	override fun insertMatchPlayers(matchId: String, team1: Team, team2: Team) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
 }

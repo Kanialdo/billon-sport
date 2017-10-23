@@ -2,11 +2,13 @@ package pl.krystiankaniowski.billonsport.database.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "player")
 class PlayerDB() {
 
+    @Ignore
     constructor(id: String, nickname: String, firstName: String, lastName: String, mean: Float, standardDeviation: Float) : this() {
         this.id = id
         this.nickname = nickname

@@ -2,20 +2,23 @@ package pl.krystiankaniowski.billonsport.database.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.Ignore
 
-@Entity(tableName = "match_members")
-class MatchMemberDB {
+@Entity(tableName = "match_members", primaryKeys = arrayOf("match_id", "player_id"))
+class MatchMemberDB() {
 
-	@PrimaryKey(autoGenerate = true)
-	@ColumnInfo(name = "id")
-	var id: Long = -1
+	@Ignore
+	constructor(matchId: String, playerId: String, teamId: Int) : this() {
+		this.matchId = matchId
+		this.playerId = playerId
+		this.teamId = teamId
+	}
 
 	@ColumnInfo(name = "match_id")
-	var matchId: Long = -1
+	lateinit var matchId: String
 
 	@ColumnInfo(name = "player_id")
-	var playerId: Long = -1
+	lateinit var playerId: String
 
 	@ColumnInfo(name = "team_no")
 	var teamId: Int = -1

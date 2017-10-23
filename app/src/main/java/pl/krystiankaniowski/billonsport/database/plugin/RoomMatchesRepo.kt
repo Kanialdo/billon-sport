@@ -6,9 +6,11 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import pl.krystiankaniowski.billonsport.core.data.Match
+import pl.krystiankaniowski.billonsport.core.data.Team
 import pl.krystiankaniowski.billonsport.core.repository.providers.MatchesRepo
 import pl.krystiankaniowski.billonsport.database.AppDatabase
 import pl.krystiankaniowski.billonsport.database.entities.MatchDB
+import pl.krystiankaniowski.billonsport.database.entities.MatchMemberDB
 import pl.krystiankaniowski.billonsport.database.entities.toCoreMatch
 
 class RoomMatchesRepo constructor(val database: AppDatabase) : MatchesRepo {
@@ -45,6 +47,18 @@ class RoomMatchesRepo constructor(val database: AppDatabase) : MatchesRepo {
 							.toList()
 							.toFlowable()
 				})
+	}
+
+	override fun insertMatchPlayers(matchId: String, team1: Team, team2: Team) {
+
+		val membersPartial = team1.members.map { MatchMemberDB(matchId, it.id, 1) }.toMutableSet()
+		membersPartial.addAll(team2.members.map { MatchMemberDB(matchId, it.id, 2) })
+		val members = membersPartial.toList()
+
+		Single.fromCallable { database.eventDao().insertMatchPlayers(members) }
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread()).subscribe()
+
 	}
 
 }

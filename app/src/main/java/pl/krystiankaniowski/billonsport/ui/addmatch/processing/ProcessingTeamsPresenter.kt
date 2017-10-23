@@ -8,6 +8,7 @@ import pl.krystiankaniowski.billonsport.core.shuffler.TrueSkillShuffler
 import pl.krystiankaniowski.billonsport.mvp.BasePresenter
 import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchFlow
 import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
+import pl.krystiankaniowski.billonsport.utils.RandomString
 import java.util.*
 import javax.inject.Inject
 
@@ -37,8 +38,11 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 	}
 
 	override fun createMatchButtonClicked() {
-		repo.getMatches().insert(match!!)
-		flow.showMatchView()
+		if (match != null) {
+			repo.getMatches().insert(match!!)
+			repo.getMatches().insertMatchPlayers(match!!.id, match!!.team1, match!!.team2)
+			flow.showMatchView()
+		}
 	}
 
 	private fun getPlayers() {
@@ -79,7 +83,7 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 		val uiTeam1 = team1.map { PlayerUI.fromPlayer(it) }
 		val uiTeam2 = team2.map { PlayerUI.fromPlayer(it) }
 
-		match = Match("0", 0, Team(team1.toSet()), Team(team2.toSet()), MatchResult.UNKNOWN)
+		match = Match(RandomString(16).nextString(), System.currentTimeMillis(), Team(team1.toSet()), Team(team2.toSet()), MatchResult.UNKNOWN)
 
 		view?.setShufflingButtonEnable(true)
 		view?.setCreateButtonEnable(true)
