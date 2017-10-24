@@ -32,7 +32,7 @@ class FrodoMatchesRepo : MatchesRepo {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun get(id: Long): Single<Match> {
+	override fun get(id: String): Single<Match> {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 

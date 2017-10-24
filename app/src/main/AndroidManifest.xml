@@ -16,6 +16,10 @@
 			android:name=".ui.login.LoginActivity"
 			android:label="@string/title_activity_login_activitydf">
 		</activity>
+		<activity
+			android:name=".ui.match.MatchDetailsActivity"
+			android:label="Match details">
+		</activity>
 		<activity android:name=".ui.main.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>

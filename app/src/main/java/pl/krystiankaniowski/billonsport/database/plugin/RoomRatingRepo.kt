@@ -24,7 +24,7 @@ class RoomRatingRepo constructor(val database: AppDatabase) : RatingRepo {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun get(id: Long): Single<RatingChange> {
+	override fun get(id: String): Single<RatingChange> {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 

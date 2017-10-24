@@ -18,9 +18,9 @@ class TrueSkillShuffler : Shuffler {
 		val players = team1.union(team2).associateBy({ it.id })
 
 		return when (result) {
-			Shuffler.MatchResult.LEFT -> TrueSkillCalculator.calculateNewRatings(GameInfo.getDefaultGameInfo(), listOf(team1.toSkillTeam(), team2.toSkillTeam()), 1, 2)
+			Shuffler.MatchResult.TEAM_1 -> TrueSkillCalculator.calculateNewRatings(GameInfo.getDefaultGameInfo(), listOf(team1.toSkillTeam(), team2.toSkillTeam()), 1, 2)
 			Shuffler.MatchResult.DRAW -> TrueSkillCalculator.calculateNewRatings(GameInfo.getDefaultGameInfo(), listOf(team1.toSkillTeam(), team2.toSkillTeam()), 1, 1)
-			Shuffler.MatchResult.RIGTH -> TrueSkillCalculator.calculateNewRatings(GameInfo.getDefaultGameInfo(), listOf(team1.toSkillTeam(), team2.toSkillTeam()), 2, 1)
+			Shuffler.MatchResult.TEAM_2 -> TrueSkillCalculator.calculateNewRatings(GameInfo.getDefaultGameInfo(), listOf(team1.toSkillTeam(), team2.toSkillTeam()), 2, 1)
 			Shuffler.MatchResult.PENDING -> throw IllegalStateException()
 		}.toCorePlayers(players)
 

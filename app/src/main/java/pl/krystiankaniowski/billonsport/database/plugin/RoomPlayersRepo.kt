@@ -23,7 +23,7 @@ class RoomPlayersRepo constructor(val database: AppDatabase) : PlayersRepo {
 		database.playerDao().deletePlayer(DatabaseConverters.fromCorePlayer(item))
 	}
 
-	override fun get(id: Long): Single<Player> {
+	override fun get(id: String): Single<Player> {
 		return database.playerDao().get(id)
 				.subscribeOn(Schedulers.computation())
 				.map { item -> DatabaseConverters.toCorePlayer(item) }

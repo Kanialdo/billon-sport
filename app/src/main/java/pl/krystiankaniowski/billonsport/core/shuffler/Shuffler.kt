@@ -5,8 +5,8 @@ import pl.krystiankaniowski.billonsport.core.data.Player
 interface Shuffler {
 
 	enum class MatchResult {
-		LEFT,
-		RIGTH,
+		TEAM_1,
+		TEAM_2,
 		DRAW,
 		PENDING
 	}

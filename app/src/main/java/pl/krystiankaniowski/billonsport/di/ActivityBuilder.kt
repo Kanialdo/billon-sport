@@ -9,6 +9,8 @@ import pl.krystiankaniowski.billonsport.ui.login.LoginActivity
 import pl.krystiankaniowski.billonsport.ui.login.LoginActivityModule
 import pl.krystiankaniowski.billonsport.ui.main.MainActivity
 import pl.krystiankaniowski.billonsport.ui.main.MainActivityModule
+import pl.krystiankaniowski.billonsport.ui.match.MatchDetailsActivity
+import pl.krystiankaniowski.billonsport.ui.match.MatchDetailsActivityModule
 
 @Module
 abstract class ActivityBuilder {
@@ -24,5 +26,9 @@ abstract class ActivityBuilder {
     @ActivityScoped
     @ContributesAndroidInjector(modules = arrayOf(AddMatchActivityModule::class))
     internal abstract fun bindAddMatchActivity(): AddMatchActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = arrayOf(MatchDetailsActivityModule::class))
+    internal abstract fun bindMatchDetailsActivity(): MatchDetailsActivity
 
 }

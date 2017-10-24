@@ -21,7 +21,7 @@ interface PlayerDao {
 	fun deletePlayer(item: PlayerDB)
 
 	@Query("SELECT * FROM player WHERE id = :id")
-	fun get(id: Long): Single<PlayerDB>
+	fun get(id: String): Single<PlayerDB>
 
 	@Query("SELECT * FROM player")
 	fun getAll(): Flowable<List<PlayerDB>>

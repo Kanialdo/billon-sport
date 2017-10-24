@@ -34,8 +34,10 @@ class RoomMatchesRepo constructor(val database: AppDatabase) : MatchesRepo {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun get(id: Long): Single<Match> {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun get(id: String): Single<Match> {
+		return database.eventDao().get(id)
+				.subscribeOn(Schedulers.computation())
+				.map { item -> item.toCoreMatch() }
 	}
 
 	override fun getAll(): Flowable<List<Match>> {

@@ -1,0 +1,81 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context="pl.krystiankaniowski.billonsport.ui.login.LoginActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:padding="8dp">
+
+		<LinearLayout
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical"
+			android:padding="8dp">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="team 1"/>
+
+			<TextView
+				android:id="@+id/tv_team_1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="team 1 membeser"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="0dip"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical"
+			android:padding="8dp">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="team 2"/>
+
+			<TextView
+				android:id="@+id/tv_team_2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="team 2 membeser"/>
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/ll_actions"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<Button
+			android:id="@+id/b_win_team_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="team 1"/>
+
+		<Button
+			android:id="@+id/b_draw"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="draw"/>
+
+		<Button
+			android:id="@+id/b_win_team_2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="team 2"/>
+
+	</LinearLayout>
+
+</LinearLayout>

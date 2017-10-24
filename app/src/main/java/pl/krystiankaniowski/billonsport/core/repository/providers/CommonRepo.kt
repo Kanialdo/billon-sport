@@ -16,7 +16,7 @@ interface CommonRepo<T> {
 	fun delete(item: T)
 
 	@Throws(RepoException::class)
-	fun get(id: Long): Single<T>
+	fun get(id: String): Single<T>
 
 	@Throws(RepoException::class)
 	fun getAll(): Flowable<List<T>>

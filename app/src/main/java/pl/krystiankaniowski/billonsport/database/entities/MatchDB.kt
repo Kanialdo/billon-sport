@@ -13,7 +13,12 @@ class MatchDB() {
 	constructor(id: String, date: Long, result: MatchResult) : this() {
 		this.id = id
 		this.date = date
-		this.result = 0
+		this.result = when (result) {
+			MatchResult.WIN_1 -> 1
+			MatchResult.WIN_2 -> 2
+			MatchResult.DRAW -> 3
+			MatchResult.UNKNOWN -> 0
+		}
 	}
 
 	@PrimaryKey

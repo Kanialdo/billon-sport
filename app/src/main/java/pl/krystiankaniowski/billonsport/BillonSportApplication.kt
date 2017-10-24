@@ -10,18 +10,22 @@ import javax.inject.Inject
 
 class BillonSportApplication : Application(), HasActivityInjector {
 
-    @Inject
-    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+	@Inject
+	lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    override fun onCreate() {
-        super.onCreate()
-        DaggerAppComponent
-                .builder()
-                .application(this)
-                .build()
-                .inject(this)
-    }
+	override fun onCreate() {
+		super.onCreate()
+		DaggerAppComponent
+				.builder()
+				.application(this)
+				.build()
+				.inject(this)
+	}
 
-    override fun activityInjector(): AndroidInjector<Activity> = activityDispatchingAndroidInjector
+	override fun activityInjector(): AndroidInjector<Activity> = activityDispatchingAndroidInjector
+
+	companion object {
+		var temp_match_id: String? = null
+	}
 
 }
