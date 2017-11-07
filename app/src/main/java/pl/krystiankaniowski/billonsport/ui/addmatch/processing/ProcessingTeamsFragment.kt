@@ -36,10 +36,16 @@ class ProcessingTeamsFragment @Inject constructor() : BaseFragment(), Processing
 		tv_loading.text = message
 	}
 
-	override fun setResultView(team1: List<PlayerUI>, team2: List<PlayerUI>, qualityMessage: String) {
+	override fun setResultView(teams: List<List<PlayerUI>>, qualityMessage: String) {
 		view_flipper.displayedChild = view_flipper.indexOfChild(ll_result)
-		text.text = team1.map { it.nickname }.toString()
-		text2.text = team2.map { it.nickname }.toString()
+
+		text.text = ""
+		text2.text = ""
+
+		for (team in teams){
+			text.append(team.map { it.nickname }.toString())
+			text.append("\n")
+		}
 		tv_quality.text = qualityMessage
 	}
 

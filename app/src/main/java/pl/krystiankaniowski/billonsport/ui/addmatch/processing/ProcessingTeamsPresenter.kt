@@ -1,14 +1,15 @@
 package pl.krystiankaniowski.billonsport.ui.addmatch.processing
 
 import io.reactivex.android.schedulers.AndroidSchedulers
-import pl.krystiankaniowski.billonsport.core.data.*
+import pl.krystiankaniowski.billonsport.core.data.Match
+import pl.krystiankaniowski.billonsport.core.data.Player
+import pl.krystiankaniowski.billonsport.core.data.Rating
 import pl.krystiankaniowski.billonsport.core.repository.Repository
 import pl.krystiankaniowski.billonsport.core.shuffler.Shuffler
 import pl.krystiankaniowski.billonsport.core.shuffler.TrueSkillShuffler
 import pl.krystiankaniowski.billonsport.mvp.BasePresenter
 import pl.krystiankaniowski.billonsport.ui.addmatch.AddMatchFlow
 import pl.krystiankaniowski.billonsport.ui.data.PlayerUI
-import pl.krystiankaniowski.billonsport.utils.RandomString
 import java.util.*
 import javax.inject.Inject
 
@@ -58,13 +59,13 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{ list ->
-							if (list.size % 2 != 0) {
-								val list2 = list.toMutableList()
-								list2.add(createVirtualPlayer(list)!!)
-								processTeams(list2.toList())
-							} else {
-								processTeams(list)
-							}
+							//							if (list.size % 2 != 0) {
+//								val list2 = list.toMutableList()
+//								list2.add(createVirtualPlayer(list)!!)
+//								processTeams(list2.toList())
+//							} else {
+							processTeams(list)
+//							}
 						},
 						{ error -> view?.setErrorView(error.message) }
 				)
@@ -75,19 +76,25 @@ class ProcessingTeamsPresenter @Inject constructor() : BasePresenter<ProcessingT
 
 		Collections.shuffle(list)
 
-		val team1 = list.filterIndexed({ id, _ -> id % 2 == 0 })
-		val team2 = list.filterIndexed({ id, _ -> id % 2 == 1 })
+		val teams = List(flow.getBundle().teamsCount, { index -> list.filterIndexed({ id, _ -> id % flow.getBundle().teamsCount == index }) })
+		var matchQuality = 1.0
 
-		val matchQuality = shuffler.getMatchQuality(team1, team2)
+		for (i in 0..teams.size - 2) {
+			for (j in i..teams.size - 1) {
+				val partialMatchQuality = shuffler.getMatchQuality(teams[i], teams[j])
+				if (partialMatchQuality < matchQuality) {
+					matchQuality = partialMatchQuality
+				}
+			}
+		}
 
-		val uiTeam1 = team1.map { PlayerUI.fromPlayer(it) }
-		val uiTeam2 = team2.map { PlayerUI.fromPlayer(it) }
+		val uiTeams = teams.map { it.map { PlayerUI.fromPlayer(it) } }
 
-		match = Match(RandomString(16).nextString(), System.currentTimeMillis(), Team(team1.toSet()), Team(team2.toSet()), MatchResult.UNKNOWN)
+		// match = Match(RandomString(16).nextString(), System.currentTimeMillis(), Team(team1.toSet()), Team(team2.toSet()), MatchResult.UNKNOWN)
 
 		view?.setShufflingButtonEnable(true)
 		view?.setCreateButtonEnable(true)
-		view?.setResultView(uiTeam1, uiTeam2, "MatchQuality to $matchQuality")
+		view?.setResultView(uiTeams, "Najgorszy MatchQuality to $matchQuality")
 
 	}
 

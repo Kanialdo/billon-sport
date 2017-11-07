@@ -9,7 +9,7 @@ interface ProcessingTeamsContract {
 
 		fun setShufflingView(message: String)
 
-		fun setResultView(team1: List<PlayerUI>, team2: List<PlayerUI>, qualityMessage: String)
+		fun setResultView(teams: List<List<PlayerUI>>, qualityMessage: String)
 
 		fun setErrorView(message: String?)
 
