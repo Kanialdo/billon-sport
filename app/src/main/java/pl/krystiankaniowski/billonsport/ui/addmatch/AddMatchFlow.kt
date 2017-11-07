@@ -4,6 +4,8 @@ interface AddMatchFlow {
 
 	fun showSelectPlayersView()
 
+	fun showConfigureView()
+
 	fun showProcessingView()
 
 	fun showMatchView()

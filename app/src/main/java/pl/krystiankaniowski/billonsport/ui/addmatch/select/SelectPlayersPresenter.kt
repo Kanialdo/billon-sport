@@ -64,7 +64,7 @@ class SelectPlayersPresenter @Inject constructor() : BasePresenter<SelectPlayers
 			}
 			else -> {
 				flow.getBundle().playersIds = selectedIds
-				flow.showProcessingView()
+				flow.showConfigureView()
 			}
 		}
 

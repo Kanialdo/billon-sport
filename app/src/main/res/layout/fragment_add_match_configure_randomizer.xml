@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dip"
+		android:layout_weight="1"
+		android:orientation="vertical"
+		android:padding="@dimen/activity_vertical_margin">
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/et_teams_count"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="teams"
+				android:inputType="number"
+				android:text="2"/>
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/et_rounds"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="rounds"
+				android:inputType="number"
+				android:text="1"/>
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/et_quality"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="min quality"
+				android:inputType="numberDecimal"
+				android:text="0.4"/>
+		</android.support.design.widget.TextInputLayout>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/linearLayout2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@android:color/background_light"
+		android:gravity="end"
+		android:orientation="horizontal"
+		android:padding="8dp">
+
+		<Button
+			android:id="@+id/b_next"
+			style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:enabled="false"
+			android:text="@string/action_next"/>
+
+	</LinearLayout>
+
+</LinearLayout>

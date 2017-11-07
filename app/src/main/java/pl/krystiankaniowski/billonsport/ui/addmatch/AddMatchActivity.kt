@@ -4,6 +4,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
 import pl.krystiankaniowski.billonsport.R
 import pl.krystiankaniowski.billonsport.ui.BaseActivty
+import pl.krystiankaniowski.billonsport.ui.addmatch.configure.ConfigureRandomizerFragment
 import pl.krystiankaniowski.billonsport.ui.addmatch.processing.ProcessingTeamsFragment
 import pl.krystiankaniowski.billonsport.ui.addmatch.select.SelectPlayersFragment
 import pl.krystiankaniowski.billonsport.utils.ActivityUtils
@@ -42,6 +43,12 @@ class AddMatchActivity : BaseActivty(), AddMatchFlow {
 
 	override fun showProcessingView() {
 		val fragment = ProcessingTeamsFragment()
+		supportFragmentInjector()?.inject(fragment)
+		ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
+	}
+
+	override fun showConfigureView() {
+		val fragment = ConfigureRandomizerFragment()
 		supportFragmentInjector()?.inject(fragment)
 		ActivityUtils.replaceFragment(supportFragmentManager, fragment, R.id.contentFrame)
 	}
